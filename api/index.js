@@ -62,6 +62,9 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+app.get('/', (req, res) => {
+  res.json({ status: 'OK', message: 'welcome to tracker app', timestamp: new Date().toISOString() });
+});
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Xpensio API is running', timestamp: new Date().toISOString() });
