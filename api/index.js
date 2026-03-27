@@ -15,8 +15,23 @@ const { errorHandler, notFound } = require('../src/middleware/errorHandler');
 
 const app = express();
 
-// Connect Database
-connectDB();
+// Only connect to DB once
+let dbConnected = false;
+
+async function initializeApp() {
+  if (!dbConnected) {
+    try {
+      await connectDB();
+      dbConnected = true;
+    } catch (err) {
+      console.error('Database connection error:', err);
+      // Don't throw - let the app start anyway
+    }
+  }
+}
+
+// Initialize on first request or module load
+initializeApp().catch(err => console.error('Init error:', err));
 
 // Security Middleware
 app.use(helmet());
@@ -63,3 +78,4 @@ app.use(notFound);
 app.use(errorHandler);
 
 module.exports = app;
+export default app;
