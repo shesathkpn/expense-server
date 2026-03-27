@@ -30,12 +30,17 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // CORS
-app.use(cors({
+app.use
+(cors({
   origin: process.env.CLIENT_URL || 'https://expense-client-two.vercel.app',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
+// 2️⃣ Preflight handler (OPTIONS)
+app.options('*', cors())
+
 
 // Body parsing
 app.use(express.json({ limit: '10kb' }));
