@@ -4,6 +4,7 @@ const {
   verifyRefreshToken, setCookies, clearCookies,
 } = require('../utils/jwt');
 
+
 // @desc  Register user
 // @route POST /api/auth/signup
 const signup = async (req, res, next) => {
@@ -134,5 +135,7 @@ const updateMe = async (req, res, next) => {
     next(err);
   }
 };
+
+
 
 module.exports = { signup, login, logout, refresh, getMe, updateMe };
