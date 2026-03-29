@@ -36,8 +36,16 @@ const setCookies = (res, accessToken, refreshToken) => {
 };
 
 const clearCookies = (res) => {
-  res.clearCookie('access_token');
-  res.clearCookie('refresh_token');
+  res.clearCookie('access_token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'none',
+  });
+  res.clearCookie('refresh_token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'none',
+  });
 };
 
 module.exports = {
